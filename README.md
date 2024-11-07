@@ -13,7 +13,7 @@ to Google Cloud.
 ![img.png](doc/figures/hla.png)
 ## Prerequisites
 ### Software
-* Google Cloud SDK
+* Google Cloud SDK s
 * terraform ~> 1.9.0
 * gsutil
 * pre-commit

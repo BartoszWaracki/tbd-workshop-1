@@ -65,7 +65,7 @@ module "dataproc" {
   project_name = var.project_name
   region       = var.region
   subnet       = module.vpc.subnets[local.notebook_subnet_id].id
-  machine_type = "e2-standard-4"
+  machine_type = "e2-standard-2"
 }
 
 ## Uncomment for Dataproc batches (serverless)
@@ -80,13 +80,12 @@ module "composer" {
   depends_on     = [module.vpc]
   source         = "./modules/composer"
   project_name   = var.project_name
-  region         = var.region
   network        = module.vpc.network.network_name
   subnet_address = local.composer_subnet_address
   env_variables = {
     "AIRFLOW_VAR_PROJECT_ID" : var.project_name,
     "AIRFLOW_VAR_REGION_NAME" : var.region,
-    "AIRFLOW_VAR_BUCKET_NAME" : local.code_bucket_name,
+    "AIRFLOW_VAR_BUCKET_NAME" : local.code_bucket_name
     "AIRFLOW_VAR_PHS_CLUSTER" : module.dataproc.dataproc_cluster_name,
     "AIRFLOW_VAR_WRK_NAMESPACE" : local.composer_work_namespace,
     "AIRFLOW_VAR_DBT_GIT_REPO" : local.dbt_git_repo,
